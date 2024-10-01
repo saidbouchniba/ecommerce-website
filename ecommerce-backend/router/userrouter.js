@@ -1,0 +1,15 @@
+const express = require("express")
+const { signUp, signin, updateuser, confirmationmail, forgetpassword, resetpassword } = require("../controler/usercontroler")
+const { signUpvalidation, validation, signinvalidation } = require("../middleware/validation")
+const { isauth } = require("../middleware/isauth")
+const userrouter = express.Router()
+userrouter.post("/register/:token", signUp)
+userrouter.post("/signin", signinvalidation, validation, signin)
+userrouter.put("/update",isauth,updateuser)
+userrouter.post("/confirmation",signUpvalidation,validation,confirmationmail)
+userrouter.get("/forgetpassword",forgetpassword)
+userrouter.put("/reset/:id/:code",resetpassword)
+userrouter.get("/getcurrent",isauth,async(req,res)=> {
+    res.status(200).send({user:req.user})
+})
+module.exports = userrouter
