@@ -1,6 +1,6 @@
-import { FINALEREGISTER, GETCURRENT, LOGIN, LOGOUT, REGISTER } from "./Actiontype"
+import { ALERTERROR, CLEARERROR, FINALEREGISTER, GETCURRENT, LOGIN, LOGOUT, REGISTER } from "./Actiontype"
 
-const initialState = { msg: "", user: null }
+const initialState = { msg: "", user: null, errors: [] }
 
 export const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -17,7 +17,12 @@ export const reducer = (state = initialState, { type, payload }) => {
         case LOGIN:
             localStorage.setItem("token", payload.token)
             return { ...state, user: payload.user }
+        case ALERTERROR:
+            return { ...state, errors: [...state.errors, payload] }
+        case CLEARERROR:
+            return { ...state, errors:state.errors.filter(el=>el.id!=payload) }
         default:
             return state
     }
 }
+

@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { useDispatch } from "react-redux"
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from "react-redux"
 import { register } from '../Redux/Action'
+import { toast } from 'react-toastify'
 function Signup() {
   const [name, setname] = useState("")
   const [email, setemail] = useState("")
@@ -8,6 +9,13 @@ function Signup() {
   const [password, setpassword] = useState("")
   const [phone, setphone] = useState(0)
   const dispatch = useDispatch()
+  const errors=useSelector(state=>state.errors)
+  console.log(errors);
+  useEffect(()=>{
+    if (errors.length!=0) {
+      errors.map(el=>toast.error(el.msg))
+    }
+  },[errors])
   const handelsubmit = (event) => {
     event.preventDefault()
     dispatch(register({ name, email, address, phone, password }))

@@ -1,5 +1,12 @@
-import { FINALEREGISTER, GETCURRENT, LOGIN, LOGOUT, REGISTER } from "./Actiontype";
+import { ALERTERROR, CLEARERROR, FINALEREGISTER, GETCURRENT, LOGIN, LOGOUT, REGISTER } from "./Actiontype";
 import axios from "axios"
+export const alerterror=(msg)=>(dispatch)=>{
+const id = Math.random()
+dispatch({type:ALERTERROR,payload:{id,msg}})
+setTimeout(() => {
+    dispatch({type:CLEARERROR,payload:id})
+}, 3000);
+}
 export const register = (data) => async (dispatch) => {
     try {
         const res = await axios.post("http://localhost:5000/users/confirmation", data)
@@ -8,7 +15,9 @@ export const register = (data) => async (dispatch) => {
 
     } catch (error) {
         console.log(error);
-
+        error.response.data.errors.forEach(el => {
+            dispatch(alerterror(el.msg))
+        });
     }
 }
 export const registerconfirmation = (token, navigate) => async (dispatch) => {
@@ -46,9 +55,12 @@ export const login = (data,navigate) => async (dispatch) => {
         setTimeout(() => { navigate("/") }, 2000)
     } catch (error) {
         console.log(error);
-
+error.response.data.errors.forEach(el => {
+    dispatch(alerterror(el.msg))
+});
     }
 }
+
 
 
 

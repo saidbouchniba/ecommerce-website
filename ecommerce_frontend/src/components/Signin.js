@@ -1,13 +1,21 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../Redux/Action'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function Signin() {
   const [email,setemail]=useState("")
   const [password,setpassword]=useState("")
   const dispatch=useDispatch()
   const navigate=useNavigate()
+  const errors=useSelector(state=>state.errors)
+  console.log(errors);
+  useEffect(()=>{
+    if (errors.length!=0) {
+      errors.map(el=>toast.error(el.msg))
+    }
+  },[errors])
   const handelsubmit=(event)=>{
     event.preventDefault()
     dispatch(login({email,password},navigate))

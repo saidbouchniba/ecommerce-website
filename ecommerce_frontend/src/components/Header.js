@@ -15,6 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Redux/Action';
+import Badge from 'react-bootstrap/Badge';
 
 const pages = [{name:'Home',href:"/"}, {name:'Contact',href:"/contact"}, {name:'Signup',href:"/signup"},{name:'Signin',href:"/signin"}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -133,6 +134,7 @@ const dispatch=useDispatch()
           <Box sx={{ flexGrow: 0 }}>
           <Link to={'/cart'}>
           <i style={{fontSize:"1.5rem",color:"white"}} className="fa-solid fa-cart-shopping"></i>
+          <Badge bg="danger">{user?.cart.length}</Badge>
           </Link>
 
           {user?<i  onClick={()=>dispatch(logout())} style={{fontSize:"1.8rem",color:"white",marginLeft:"20px"}} className="fa-solid fa-power-off"></i>:null}

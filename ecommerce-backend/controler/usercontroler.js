@@ -10,7 +10,7 @@ exports.confirmationmail=async(req,res)=>{
         const found = await users.findOne({ email })
         if (found) {
             res.status(400).send({
-                Msg: "this user already created"
+             errors:[{ msg: "this user already created"}]  
 
             })
 
@@ -84,7 +84,7 @@ exports.signin = async (req, res) => {
         const found = await users.findOne({ email })
         if (!found) {
             res.status(400).send({
-                Msg: "you need to create an account"
+               errors:[{msg: "you need to create an account"}] 
 
             })
         }
@@ -92,7 +92,7 @@ exports.signin = async (req, res) => {
             const match = bcrypt.compareSync(password, found.password)
             if (!match) {
                 res.status(400).send({
-                    Msg: "your password is incorrect"
+                   errors:[{msg: "your password is incorrect"}] 
                 })
             }
             else {

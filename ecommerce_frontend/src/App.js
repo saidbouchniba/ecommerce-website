@@ -13,6 +13,8 @@ import Confirmationemail from './components/Confirmationemail';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getcurrent } from './Redux/Action';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const dispatch=useDispatch()
@@ -31,6 +33,7 @@ function App() {
       <Route path='/cart' element={<Cart/>}/>
       <Route path='/users/:token' element={<Confirmationemail/>}/>
      </Routes>
+     <ToastContainer position="top-right"/>
     
      <Footer/>
      
