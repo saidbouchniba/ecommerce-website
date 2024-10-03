@@ -51,7 +51,7 @@ const dispatch=useDispatch()
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -118,17 +118,11 @@ const dispatch=useDispatch()
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },gap:"50px" }}>
             {pages.map((page) => (
-              <Button
-                key={page.name}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-             
-             >
+              
                 <a style={{color:'white',textDecoration:'none'}} href={page.href}>{page.name}</a>
                 
-              </Button>
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>

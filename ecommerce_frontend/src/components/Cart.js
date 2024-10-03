@@ -1,6 +1,11 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateuser } from '../Redux/Action'
+
 
 function Cart() {
+  const user=useSelector(state=>state.user)
+const dispatch=useDispatch()
   return (
     <section style={{paddingTop:"50px",paddingBottom:"50px"}} className="py-20 bg-light overflow-hidden">
     <div className="container">
@@ -31,7 +36,7 @@ function Cart() {
               </div>
             </div>
             <div className="mb-12 py-6 border-top border-bottom">
-              
+              {user?.cart.map(el=>
               <div className="row align-items-center">
                 <div className="col-12 col-md-8 col-lg-6 mb-6 mb-md-0">
                   <div className="row align-items-center">
@@ -43,79 +48,44 @@ function Cart() {
                         <img
                           className="img-fluid"
                           style={{ objectFit: "contain" }}
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVtRavHul5UPMtCcL5qLC19lIQOEG1QHU8Jw&s"
+                          src={el.product.Image}
                           alt=""
                         />
                       </div>
                     </div>
                     <div className="col-8">
-                      <h3 className="mb-2 lead fw-bold">Nike basketball ball</h3>
-                      <p className="mb-0 text-secondary">
-                        Maecenas 0.7 commodo sit
-                      </p>
+                      <h3 className="mb-2 lead fw-bold">{el.product.title}</h3>
+                      
                     </div>
                   </div>
                 </div>
                 <div className="d-none d-lg-block col-lg-2">
-                  <p className="mb-0 lead fw-bold text-info">$29.89</p>
-                  <span className="small text-secondary text-decoration-line-through">
-                    $33.69
-                  </span>
+                  <p className="mb-0 lead fw-bold text-info">{el.product.price} TND </p>
+                  
                 </div>
                 <div className="col-auto col-md-2">
                   <div className="d-inline-flex align-items-center px-4 fw-bold text-secondary border rounded-2">
-                    <button className="btn px-0 py-2">
-                      <svg
-                        width={12}
-                        height={2}
-                        viewBox="0 0 12 2"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g opacity="0.35">
-                          <rect
-                            x={12}
-                            width={2}
-                            height={12}
-                            transform="rotate(90 12 0)"
-                            fill="currentColor"
-                          />
-                        </g>
-                      </svg>
-                    </button>
-                    <input
+                  
+                    <span
                       className="form-control px-2 py-4 text-center text-md-end border-0"
                       style={{ width: 48 }}
-                      type="number"
-                      placeholder={1}
-                    />
-                    <button className="btn px-0 py-2">
-                      <svg
-                        width={12}
-                        height={12}
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g opacity="0.35">
-                          <rect x={5} width={2} height={12} fill="currentColor" />
-                          <rect
-                            x={12}
-                            y={5}
-                            width={2}
-                            height={12}
-                            transform="rotate(90 12 5)"
-                            fill="currentColor"
-                          />
-                        </g>
-                      </svg>
-                    </button>
+                    
+                  >{el.quantity}</span>
+                   
                   </div>
                 </div>
+                
+                  
+                
                 <div className="col-auto col-md-2 text-end">
-                  <p className="lead fw-bold text-info">$29.89</p>
+                  <p className="lead fw-bold text-info">{el.product.price*el.quantity}</p>
+                  <button onClick={()=>dispatch(updateuser({cart:user.cart.filter(product=>product.product._id!=el.product._id)}))} style={{background:"black",color:"white",borderRadius:"5px"}}>
+                  <i className="fa-solid fa-trash"></i>
+                  </button>
                 </div>
+                
               </div>
+              )}
             </div>
             <div className="d-flex flex-wrap flex-md-nowrap align-items-center mb-lg-n4">
               <span className="flex-shrink-0 me-12 mb-4 mb-lg-0 fw-bold">
@@ -136,20 +106,21 @@ function Cart() {
               <h3 className="mb-6 text-white">Cart totals</h3>
               <div className="d-flex mb-8 align-items-center justify-content-between pb-5 border-bottom border-info-light">
                 <span className="text-light">Subtotal</span>
-                <span className="lead fw-bold text-white">$89.67</span>
+                <span className="lead fw-bold text-white">{user?.cart.reduce((acc,el)=>acc + Number(el.quantity)*Number(el.product.price),0)}TND </span>
+
               </div>
               <h4 className="mb-2 lead fw-bold text-white">Shipping</h4>
               <div className="d-flex mb-2 justify-content-between align-items-center">
                 <span className="text-light">Next day</span>
-                <span className="lead fw-bold text-white">$11.00</span>
+                <span className="lead fw-bold text-white">7 TND</span>
               </div>
               <div className="d-flex mb-10 justify-content-between align-items-center">
-                <span className="text-light">Shipping to United States</span>
+                <span className="text-light">Delivery throughout the republic</span>
                 <span className="lead fw-bold text-white">-</span>
               </div>
               <div className="d-flex mb-10 justify-content-between align-items-center">
                 <span className="lead fw-bold text-white">Order total</span>
-                <span className="lead fw-bold text-white">$100.67</span>
+                <span className="lead fw-bold text-white">{user?.cart.reduce((acc,el)=>acc + Number(el.quantity)*Number(el.product.price),7)}TND</span>
               </div>
               <a className="btn btn-primary w-100 text-uppercase" href="#">
                 Go to Checkout

@@ -12,7 +12,7 @@ import Cart from './components/Cart';
 import Confirmationemail from './components/Confirmationemail';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getcurrent } from './Redux/Action';
+import { getcurrent, getproducts } from './Redux/Action';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,6 +20,7 @@ function App() {
   const dispatch=useDispatch()
   useEffect(()=>{
     dispatch(getcurrent())
+    dispatch(getproducts())
   })
   return (
     <div className="App">

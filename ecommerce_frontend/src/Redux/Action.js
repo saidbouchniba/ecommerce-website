@@ -1,4 +1,4 @@
-import { ALERTERROR, CLEARERROR, FINALEREGISTER, GETCURRENT, LOGIN, LOGOUT, REGISTER } from "./Actiontype";
+import { ALERTERROR, CLEARERROR, FINALEREGISTER, GETCURRENT, GETPRODUCTS, LOGIN, LOGOUT, REGISTER } from "./Actiontype";
 import axios from "axios"
 export const alerterror=(msg)=>(dispatch)=>{
 const id = Math.random()
@@ -60,7 +60,41 @@ error.response.data.errors.forEach(el => {
 });
     }
 }
+export const getproducts = () => async (dispatch) => {
 
+    try {
+        const res = await axios.get("http://localhost:5000/api/allshirt")
+        console.log(res);
+        dispatch({ type: GETPRODUCTS, payload: res.data })
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+export const updateuser = (data) => async (dispatch) => {
+    const config = { headers: { token: localStorage.getItem("token") } }
+
+    try {
+        const res = await axios.put("http://localhost:5000/users/update",data,config)
+        console.log(res);
+        dispatch(getcurrent())
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+export const newshirt= (data) => async (dispatch) => {
+    const config = { headers: { token: localStorage.getItem("token") } }
+
+    try {
+        const res = await axios.post("http://localhost:5000/api/add",data,config)
+        console.log(res);
+        dispatch(getproducts())
+    } catch (error) {
+        console.log(error);
+
+    }
+}
 
 
 

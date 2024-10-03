@@ -1,6 +1,6 @@
-import { ALERTERROR, CLEARERROR, FINALEREGISTER, GETCURRENT, LOGIN, LOGOUT, REGISTER } from "./Actiontype"
+import { ALERTERROR, CLEARERROR, FINALEREGISTER, GETCURRENT, GETPRODUCTS, LOGIN, LOGOUT, REGISTER } from "./Actiontype"
 
-const initialState = { msg: "", user: null, errors: [] }
+const initialState = { msg: "", user: null, errors: [], products: [] }
 
 export const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -20,7 +20,9 @@ export const reducer = (state = initialState, { type, payload }) => {
         case ALERTERROR:
             return { ...state, errors: [...state.errors, payload] }
         case CLEARERROR:
-            return { ...state, errors:state.errors.filter(el=>el.id!=payload) }
+            return { ...state, errors: state.errors.filter(el => el.id != payload) }
+        case GETPRODUCTS:
+            return { ...state, products: payload.shirts }
         default:
             return state
     }
