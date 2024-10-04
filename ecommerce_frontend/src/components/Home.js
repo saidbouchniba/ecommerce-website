@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Carousel from 'react-bootstrap/Carousel';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -6,14 +6,21 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Addproduct from './Addproduct';
-function Home() {
+import { deleteshirt } from '../Redux/Action';
+import Editproduct from './Editproduct';
+function Home({dark}) {
+    console.log(dark);
+    
+    
     const products = useSelector(state => state.products)
     console.log(products);
     const user=useSelector(state=>state.user)
+    const dispatch=useDispatch()
+
     return (
-        <div>
+        <div style={{background:dark?"black":"white",color:dark?"white":"" }}>
             <Carousel>
                 <Carousel.Item>
                     <img style={{ width: "100%", height: "500px" }} src='https://cms.cloudinary.vpsvc.com/images/c_scale,dpr_auto,f_auto,q_auto:best,t_productPageHeroGalleryTransformation_v2,w_auto/legacy_dam/en-ca/S001751158/NPIB-20835-NA-Event-TShirts-PDP-Hero-002' />
@@ -43,10 +50,13 @@ function Home() {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
-            <section  style={{ marginTop: "70px", textAlign: "center" }}>
-                {user?.role==="admin"?<Addproduct/>:null}
+            <section  style={{ marginTop: "70px", textAlign: "center",background:dark?"black":"",color:dark?"white":""  }}>
+                {user?.role==="admin"?<div>
+                    <Addproduct/>
+                    
+                    </div>:null}
             </section>
-            <section style={{ marginTop: "70px", textAlign: "center" }}>
+            <section  style={{ marginTop: "70px", textAlign: "center",background:dark?"black":"",color:dark?"white":"" }}>
                 <h1>NEW ARRIVALS</h1>
                 <hr />
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -70,13 +80,17 @@ function Home() {
                                     <span>Price: {product.price}DT</span>
                                 </Typography>
                             </CardActions>
-                        </Card>
+                            {user?.role==="admin"? <button style={{border:"none",borderRadius:"8px",background:"red",marginBottom:"10px",}} onClick={()=>dispatch(deleteshirt(product._id))}>DELETE</button>:null}
+                          
+                            {user?.role==="admin"? <Editproduct product={product}/>:null}
+                        </Card >
+
                     )}
 
                 </div>
 
             </section>
-            <section style={{ marginTop: "70px", textAlign: "center" }}>
+            <section style={{ marginTop: "70px", textAlign: "center",background:dark?"black":"",color:dark?"white":""  }}>
                 <h1>BEST SELLERS</h1>
                 <hr />
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -100,6 +114,8 @@ function Home() {
                                     <span>Price: {product.price}DT</span>
                                 </Typography>
                             </CardActions>
+                           {user?.role==="admin"? <button style={{border:"none",borderRadius:"8px",background:"red",marginBottom:"10px",}} onClick={()=>dispatch(deleteshirt(product._id))}>DELETE</button>:null}
+                           {user?.role==="admin"? <Editproduct product={product}/>:null}
                         </Card>
                     )}
 
@@ -107,7 +123,7 @@ function Home() {
                 </div>
 
             </section>
-            <section style={{ padding: "80px", display: "flex", justifyContent: 'space-around', width: "100%" }}>
+            <section style={{ padding: "80px", display: "flex", justifyContent: 'space-around', width: "100%",background:dark?"black":"",color:dark?"white":""  }}>
                 <div style={{ width: "40%" }}>
                     <img style={{ width: "100%", height: '100%', borderRadius: "25px" }} src='https://as1.ftcdn.net/v2/jpg/05/25/30/00/1000_F_525300082_S23Zes3WBvlS44yLqcOwsqay2qgaJy9q.jpg' />
                 </div>

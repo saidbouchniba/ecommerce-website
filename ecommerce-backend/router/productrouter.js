@@ -3,7 +3,7 @@ const { addshirt, getshirts, deleteshirt, updateshirt, getoneshirt } = require("
 const shirtrouter=express.Router()
 shirtrouter.post("/add",addshirt)
 shirtrouter.get("/allshirt",getshirts)
-shirtrouter.delete("/deleteshirt",deleteshirt)
-shirtrouter.put("/update",updateshirt)
+shirtrouter.delete("/deleteshirt/:id",deleteshirt)
+shirtrouter.put("/update/:id",updateshirt)
 shirtrouter.get("/getone/:id",getoneshirt)
 module.exports=shirtrouter

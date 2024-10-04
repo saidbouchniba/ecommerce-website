@@ -1,6 +1,20 @@
-import React from 'react'
+import { useStepContext } from '@mui/material'
+import axios from 'axios'
+import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 function Contact() {
+  const [name,setname]=useState("")
+  const [email,setemail]=useState("")
+  const [msg,setmsg]=useState("")
+  const handelsubmit=async(event)=>{
+    event.preventDefault()
+    const res=await axios.post("http://localhost:5000/users/contact",{name,email,msg})
+    if (res.status===200) {
+      toast.success("Email received,thanks")
+
+    }
+  }
   return (
     <section style={{height:"100vh",marginTop:"10%",}} className="py-12 py-lg-24 position-relative overflow-hidden">
   <img
@@ -96,7 +110,7 @@ function Contact() {
                 <label className="fw-semibold fs-9 mb-1" htmlFor="">
                   Full Name
                 </label>
-                <input
+                <input onChange={(event)=>setname(event.target.value)}
                   className="form-control"
                   type="text"
                   name=""
@@ -108,7 +122,7 @@ function Contact() {
                 <label className="fw-semibold fs-9 mb-1" htmlFor="">
                   Email
                 </label>
-                <input
+                <input onChange={(event)=>setemail(event.target.value)}
                   className="form-control"
                   type="email"
                   name=""
@@ -120,7 +134,7 @@ function Contact() {
                 <label className="fw-semibold fs-9 mb-1" htmlFor="">
                   Message
                 </label>
-                <textarea
+                <textarea onChange={(event)=>setmsg(event.target.value)}
                   className="form-control w-100"
                   name=""
                   id=""
@@ -130,7 +144,7 @@ function Contact() {
                 />
               </div>
             </div>
-            <button className="btn btn-primary" type="submit">
+            <button onClick={handelsubmit} className="btn btn-primary" type="submit">
               Submit
             </button>
           </form>

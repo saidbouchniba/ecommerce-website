@@ -17,15 +17,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Redux/Action';
 import Badge from 'react-bootstrap/Badge';
 
-const pages = [{name:'Home',href:"/"}, {name:'Contact',href:"/contact"}, {name:'Signup',href:"/signup"},{name:'Signin',href:"/signin"}];
+const pages = [{ name: 'Home', href: "/" }, { name: 'Contact', href: "/contact" }, { name: 'Signup', href: "/signup" }, { name: 'Signin', href: "/signin" }];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function Header() {
+function Header({ dark, setdark }) {
+  console.log(dark);
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-const user = useSelector(state=>state.user)
-console.log(user);
-const dispatch=useDispatch()
+  const user = useSelector(state => state.user)
+  console.log(user);
+  const dispatch = useDispatch()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -46,7 +48,7 @@ const dispatch=useDispatch()
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-            <img style={{width:"50px",marginRight:"20px",borderRadius:"50%"}} src='https://static.vecteezy.com/system/resources/previews/016/471/452/original/abstract-modern-ecommerce-logo-ecommerce-logo-design-shop-logo-design-template-creative-ecommerce-logo-vector.jpg'/>
+          <img style={{ width: "50px", marginRight: "20px", borderRadius: "50%" }} src='https://static.vecteezy.com/system/resources/previews/016/471/452/original/abstract-modern-ecommerce-logo-ecommerce-logo-design-shop-logo-design-template-creative-ecommerce-logo-vector.jpg' />
           <Typography
             variant="h6"
             noWrap
@@ -118,23 +120,30 @@ const dispatch=useDispatch()
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },gap:"50px" }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: "50px" }}>
             {pages.map((page) => (
-              
-                <a style={{color:'white',textDecoration:'none'}} href={page.href}>{page.name}</a>
-                
+
+              <a style={{ color: 'white', textDecoration: 'none' }} href={page.href}>{page.name}</a>
+
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-          <Link to={'/cart'}>
-          <i style={{fontSize:"1.5rem",color:"white"}} className="fa-solid fa-cart-shopping"></i>
-          <Badge bg="danger">{user?.cart.length}</Badge>
-          </Link>
+            <Link to={'/cart'}>
+              <i style={{ fontSize: "1.5rem", color: "white" }} className="fa-solid fa-cart-shopping"></i>
+              <Badge bg="danger">{user?.cart.length}</Badge>
+            </Link>
 
-          {user?<i  onClick={()=>dispatch(logout())} style={{fontSize:"1.8rem",color:"white",marginLeft:"20px"}} className="fa-solid fa-power-off"></i>:null}
-           
-           
-           
+            {user ? <i onClick={() => dispatch(logout())} style={{ fontSize: "1.8rem", color: "white", marginLeft: "20px" }} className="fa-solid fa-power-off"></i> : null}
+            <div className="toggle-switch" >
+              <input  className="toggle-input" id="toggle" type="checkbox" />
+              <label onClick={() => {
+                setdark(!dark)
+                localStorage.setItem("dark", !dark)
+              }} className="toggle-label" htmlFor="toggle" />
+            </div>
+
+
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

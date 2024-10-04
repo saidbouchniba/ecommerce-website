@@ -32,7 +32,7 @@ exports.getshirts=async(req,res)=>{
 exports.deleteshirt=async(req,res)=>{
     try {
       await products.deleteOne({
-        _id:req.params._id
+        _id:req.params.id
 
       }) 
       res.status(200).send({
@@ -49,7 +49,7 @@ exports.deleteshirt=async(req,res)=>{
 exports.updateshirt=async(req,res)=>{
     try {
        const shirt=await products.updateOne({
-        _id:req.params._id
+        _id:req.params.id
        },{
         $set:{
            ... req.body

@@ -95,6 +95,32 @@ export const newshirt= (data) => async (dispatch) => {
 
     }
 }
+export const deleteshirt= (id) => async (dispatch) => {
+    const config = { headers: { token: localStorage.getItem("token") } }
+
+    try {
+        const res = await axios.delete("http://localhost:5000/api/deleteshirt/"+id,config)
+        console.log(res);
+        dispatch(getproducts())
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+export const editshirt= (id,data) => async (dispatch) => {
+    const config = { headers: { token: localStorage.getItem("token") } }
+
+    try {
+        const res = await axios.put("http://localhost:5000/api/update/"+id,data)
+        console.log(res);
+        dispatch(getproducts())
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
 
 
 
