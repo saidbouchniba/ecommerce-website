@@ -8,7 +8,7 @@ const app=express()
 const port=5000
 connectDB()
 app.use(express.json())
-app.use(cors({origin:"http://localhost:3000", credentials:true}))
+app.use(cors({origin:"https://ecommerce-website-1-1xh7.onrender.com", credentials:true}))
 app.use("/api",shirtrouter)
 app.use("/users",userrouter)
 app.use("/order",orderrouter)
