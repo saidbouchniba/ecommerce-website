@@ -9,7 +9,7 @@ setTimeout(() => {
 }
 export const register = (data) => async (dispatch) => {
     try {
-        const res = await axios.post("http://localhost:5000/users/confirmation", data)
+        const res = await axios.post("https://ecommerce-website-xgub.onrender.com/users/confirmation", data)
         console.log(res);
         dispatch({ type: REGISTER, payload: res.data })
 
@@ -22,7 +22,7 @@ export const register = (data) => async (dispatch) => {
 }
 export const registerconfirmation = (token, navigate) => async (dispatch) => {
     try {
-        const res = await axios.post("http://localhost:5000/users/register/" + token)
+        const res = await axios.post("https://ecommerce-website-xgub.onrender.com/users/register/" + token)
         console.log(res);
         dispatch({ type: FINALEREGISTER, payload: res.data })
         setTimeout(() => { navigate("/") }, 2000)
@@ -35,7 +35,7 @@ export const getcurrent = () => async (dispatch) => {
     const config = { headers: { token: localStorage.getItem("token") } }
 
     try {
-        const res = await axios.get("http://localhost:5000/users/getcurrent", config)
+        const res = await axios.get("https://ecommerce-website-xgub.onrender.com/users/getcurrent", config)
         console.log(res);
         dispatch({ type: GETCURRENT, payload: res.data })
     } catch (error) {
@@ -49,7 +49,7 @@ export const logout=()=>{
 }
 export const login = (data,navigate) => async (dispatch) => {
     try {
-        const res = await axios.post("http://localhost:5000/users/signin", data)
+        const res = await axios.post("https://ecommerce-website-xgub.onrender.com/users/signin", data)
         console.log(res);
         dispatch({ type: LOGIN, payload: res.data })
         setTimeout(() => { navigate("/") }, 2000)
@@ -63,7 +63,7 @@ error.response.data.errors.forEach(el => {
 export const getproducts = () => async (dispatch) => {
 
     try {
-        const res = await axios.get("http://localhost:5000/api/allshirt")
+        const res = await axios.get("https://ecommerce-website-xgub.onrender.com/api/allshirt")
         console.log(res);
         dispatch({ type: GETPRODUCTS, payload: res.data })
     } catch (error) {
@@ -75,7 +75,7 @@ export const updateuser = (data) => async (dispatch) => {
     const config = { headers: { token: localStorage.getItem("token") } }
 
     try {
-        const res = await axios.put("http://localhost:5000/users/update",data,config)
+        const res = await axios.put("https://ecommerce-website-xgub.onrender.com/users/update",data,config)
         console.log(res);
         dispatch(getcurrent())
     } catch (error) {
@@ -87,7 +87,7 @@ export const newshirt= (data) => async (dispatch) => {
     const config = { headers: { token: localStorage.getItem("token") } }
 
     try {
-        const res = await axios.post("http://localhost:5000/api/add",data,config)
+        const res = await axios.post("https://ecommerce-website-xgub.onrender.com/api/add",data,config)
         console.log(res);
         dispatch(getproducts())
     } catch (error) {
@@ -99,7 +99,7 @@ export const deleteshirt= (id) => async (dispatch) => {
     const config = { headers: { token: localStorage.getItem("token") } }
 
     try {
-        const res = await axios.delete("http://localhost:5000/api/deleteshirt/"+id,config)
+        const res = await axios.delete("https://ecommerce-website-xgub.onrender.com/api/deleteshirt/"+id,config)
         console.log(res);
         dispatch(getproducts())
     } catch (error) {
@@ -111,7 +111,7 @@ export const editshirt= (id,data) => async (dispatch) => {
     const config = { headers: { token: localStorage.getItem("token") } }
 
     try {
-        const res = await axios.put("http://localhost:5000/api/update/"+id,data)
+        const res = await axios.put("https://ecommerce-website-xgub.onrender.com/api/update/"+id,data)
         console.log(res);
         dispatch(getproducts())
     } catch (error) {

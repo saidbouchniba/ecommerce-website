@@ -9,7 +9,7 @@ function Cart({dark}) {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
   const handelsubmit = async () => {
-    const res = await axios.post("http://localhost:5000/users/payment", { cart: user.cart })
+    const res = await axios.post("https://ecommerce-website-xgub.onrender.com/users/payment", { cart: user.cart })
     if (res.status === 200) {
       window.location.href = res.data.url
     }

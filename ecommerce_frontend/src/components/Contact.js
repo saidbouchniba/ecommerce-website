@@ -9,7 +9,7 @@ function Contact() {
   const [msg,setmsg]=useState("")
   const handelsubmit=async(event)=>{
     event.preventDefault()
-    const res=await axios.post("http://localhost:5000/users/contact",{name,email,msg})
+    const res=await axios.post("https://ecommerce-website-xgub.onrender.com/users/contact",{name,email,msg})
     if (res.status===200) {
       toast.success("Email received,thanks")
 
