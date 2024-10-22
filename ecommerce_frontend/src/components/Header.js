@@ -123,7 +123,7 @@ function Header({ dark, setdark }) {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: "50px" }}>
             {pages.map((page) => (
 
-              <a style={{ color: 'white', textDecoration: 'none' }} href={page.href}>{page.name}</a>
+              <Link style={{ color: 'white', textDecoration: 'none' }} to={page.href}>{page.name}</Link>
 
             ))}
           </Box>
