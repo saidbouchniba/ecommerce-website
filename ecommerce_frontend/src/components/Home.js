@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Addproduct from './Addproduct';
 import { deleteshirt } from '../Redux/Action';
 import Editproduct from './Editproduct';
+import { Link } from 'react-router-dom';
 function Home({dark}) {
     console.log(dark);
     
@@ -25,9 +26,9 @@ function Home({dark}) {
                 <Carousel.Item>
                     <img style={{ width: "100%", height: "500px" }} src='https://cms.cloudinary.vpsvc.com/images/c_scale,dpr_auto,f_auto,q_auto:best,t_productPageHeroGalleryTransformation_v2,w_auto/legacy_dam/en-ca/S001751158/NPIB-20835-NA-Event-TShirts-PDP-Hero-002' />
                     <Carousel.Caption>
-                        <a href='/products' className="btn btn-primary" type="submit">
+                        <Link to='/products' className="btn btn-primary" type="submit">
                             Shop Now
-                        </a>
+                        </Link>
 
                     </Carousel.Caption>
                 </Carousel.Item>
